@@ -1,6 +1,6 @@
 {
   "name": "react-scripts-ts",
-  "version": "2.7.8",
+  "version": "2.7.9",
   "description": "Configuration and scripts for Create React App.",
   "repository": "wmonk/create-react-app",
   "license": "BSD-3-Clause",
@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "app-root-path": "^2.0.1",
+    "awesome-typescript-loader": "^3.2.3",
     "autoprefixer": "^7.1.2",
     "case-sensitive-paths-webpack-plugin": "^2.1.1",
     "chalk": "^2.1.0",
@@ -58,7 +59,6 @@
     "worker-loader": "baristalabs/worker-loader"
   },
   "devDependencies": {
-    "awesome-typescript-loader": "^3.2.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },
