@@ -6161,9 +6161,9 @@ worker-farm@^1.3.1:
     errno "^0.1.4"
     xtend "^4.0.1"
 
-worker-loader@beyond-sharepoint/worker-loader:
-  version "0.8.1"
-  resolved "https://codeload.github.com/beyond-sharepoint/worker-loader/tar.gz/aa2cccca1f828c629603d92acb97a2e71d120a3d"
+worker-loader@baristalabs/worker-loader:
+  version "0.8.2"
+  resolved "https://codeload.github.com/baristalabs/worker-loader/tar.gz/37b9337d4a80cf31a30f8407bda2b4f92d5fd925"
   dependencies:
     loader-utils "^1.0.2"
     schema-utils "^0.3.0"
