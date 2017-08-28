@@ -134,6 +134,9 @@ module.exports = {
         loader: require.resolve('tslint-loader'),
         enforce: 'pre',
         include: paths.appSrc,
+        options: {
+          typeCheck: true,
+        }
       },
       {
         test: /\.js$/,
