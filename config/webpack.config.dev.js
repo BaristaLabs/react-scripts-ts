@@ -36,7 +36,7 @@ module.exports = {
   // The first two entry points enable "hot" CSS and auto-refreshes for JS.
   entry: {
     runtime: [require.resolve('./polyfills')],
-    vendor: [paths.appVendorJs],
+    vendor: ['react', 'react-dom', paths.appVendorJs],
     background: [paths.appBackgroundJs],
     main: [
       // Include an alternative client for WebpackDevServer. A client's job is to
@@ -298,10 +298,12 @@ module.exports = {
     // Used by awesome-typescript-loader
     new CheckerPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor'
+      name: 'runtime',
+      chunks: ['runtime', 'vendor', 'background', 'main']
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'runtime'
+      name: 'vendor',
+      chunks: ['main']
     })
   ],
   // Some libraries import Node modules but don't use them in the browser.

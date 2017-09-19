@@ -58,7 +58,7 @@ module.exports = {
   // In production, we only want to load the polyfills and the app code.
   entry: {
     runtime: [require.resolve('./polyfills')],
-    vendor: [paths.appVendorJs],
+    vendor: ['react', 'react-dom', paths.appVendorJs],
     background: [paths.appBackgroundJs],
     main: [paths.appIndexJs],
   },
@@ -363,10 +363,12 @@ module.exports = {
     // Use a hashed module id rather than resolving order
     new webpack.HashedModuleIdsPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor'
+      name: 'runtime',
+      chunks: ['runtime', 'vendor', 'background', 'main']
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'runtime'
+      name: 'vendor',
+      chunks: ['main']
     })
   ],
   // Some libraries import Node modules but don't use them in the browser.
