@@ -1,13 +1,3 @@
-// @remove-on-eject-begin
-/**
- * Copyright (c) 2015-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
-// @remove-on-eject-end
 'use strict';
 
 const autoprefixer = require('autoprefixer');
@@ -66,7 +56,11 @@ module.exports = {
   // You can exclude the *.map files from the build during deployment.
   devtool: 'source-map',
   // In production, we only want to load the polyfills and the app code.
-  entry: [require.resolve('./polyfills'), paths.appIndexJs],
+  entry: {
+    vendor: [require.resolve('./polyfills'), paths.appVendorJs],
+    background: [paths.appBackgroundJs],
+    main: [paths.appIndexJs],
+  },
   output: {
     // The build folder.
     path: paths.appBuild,
@@ -364,7 +358,15 @@ module.exports = {
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     // Used by awesome-typescript-loader
-    new CheckerPlugin()
+    new CheckerPlugin(),
+    // Use a hashed module id rather than resolving order
+    new webpack.HashedModuleIdsPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor'
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'runtime'
+    })
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.

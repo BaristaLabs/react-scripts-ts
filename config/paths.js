@@ -1,13 +1,3 @@
-// @remove-on-eject-begin
-/**
- * Copyright (c) 2015-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
-// @remove-on-eject-end
 'use strict';
 
 const path = require('path');
@@ -55,6 +45,8 @@ module.exports = {
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
   appIndexJs: resolveApp('src/index.tsx'),
+  appVendorJs: resolveApp('src/vendor.ts'),
+  appBackgroundJs: resolveApp('src/background.ts'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
   yarnLockFile: resolveApp('yarn.lock'),
@@ -76,6 +68,8 @@ module.exports = {
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
   appIndexJs: resolveApp('src/index.tsx'),
+  appVendorJs: resolveApp('src/vendor.ts'),
+  appBackgroundJs: resolveApp('src/background.ts'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
   yarnLockFile: resolveApp('yarn.lock'),
@@ -96,8 +90,7 @@ const reactScriptsLinked = fs.existsSync(reactScriptsPath) &&
   fs.lstatSync(reactScriptsPath).isSymbolicLink();
 
 // config before publish: we're in ./packages/react-scripts/config/
-if (
-  !reactScriptsLinked &&
+if (!reactScriptsLinked &&
   __dirname.indexOf(path.join('packages', 'react-scripts', 'config')) !== -1
 ) {
   module.exports = {
@@ -107,6 +100,8 @@ if (
     appPublic: resolveOwn('template/public'),
     appHtml: resolveOwn('template/public/index.html'),
     appIndexJs: resolveOwn('template/src/index.tsx'),
+    appVendorJs: resolveApp('src/vendor.ts'),
+    appBackgroundJs: resolveApp('src/background.ts'),
     appPackageJson: resolveOwn('package.json'),
     appSrc: resolveOwn('template/src'),
     yarnLockFile: resolveOwn('template/yarn.lock'),
