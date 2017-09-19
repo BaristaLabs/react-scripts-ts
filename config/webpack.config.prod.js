@@ -59,8 +59,7 @@ module.exports = {
   entry: {
     runtime: [require.resolve('./polyfills')],
     vendor: ['react', 'react-dom', paths.appVendorJs],
-    background: [paths.appBackgroundJs],
-    main: [paths.appIndexJs],
+    main: [paths.appIndexJs]
   },
   output: {
     // The build folder.
@@ -364,7 +363,7 @@ module.exports = {
     new webpack.HashedModuleIdsPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'runtime',
-      chunks: ['runtime', 'vendor', 'background', 'main']
+      chunks: ['runtime', 'vendor', 'main']
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',

@@ -37,7 +37,6 @@ module.exports = {
   entry: {
     runtime: [require.resolve('./polyfills')],
     vendor: ['react', 'react-dom', paths.appVendorJs],
-    background: [paths.appBackgroundJs],
     main: [
       // Include an alternative client for WebpackDevServer. A client's job is to
       // connect to WebpackDevServer by a socket and get notified about changes.
@@ -273,7 +272,7 @@ module.exports = {
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,
-      template: paths.appHtml,
+      template: paths.appHtml
     }),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'development') { ... }. See `./env.js`.
@@ -299,7 +298,7 @@ module.exports = {
     new CheckerPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'runtime',
-      chunks: ['runtime', 'vendor', 'background', 'main']
+      chunks: ['runtime', 'vendor', 'main']
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
