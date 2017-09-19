@@ -303,7 +303,7 @@ module.exports = {
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      chunks: ['main']
+      chunks: ['vendor', 'main']
     })
   ],
   // Some libraries import Node modules but don't use them in the browser.
