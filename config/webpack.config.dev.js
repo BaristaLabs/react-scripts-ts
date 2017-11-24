@@ -13,6 +13,7 @@ const paths = require('./paths');
 const {
   CheckerPlugin
 } = require('awesome-typescript-loader');
+const WriteFilePlugin = require("write-file-webpack-plugin");
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -59,6 +60,7 @@ module.exports = {
     ]
   },
   output: {
+    path: paths.appBuild,
     // Add /* filename */ comments to generated require()s in the output.
     pathinfo: true,
     // This does not produce a real file. It's just the virtual path that is
@@ -316,7 +318,9 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       chunks: ['vendor', 'main']
-    })
+    }),
+    //Write fields to the build folder during dev.
+    new WriteFilePlugin()
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
