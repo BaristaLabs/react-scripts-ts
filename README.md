@@ -6,9 +6,13 @@ Please refer to its documentation:
 * [Getting Started]
 
 ``` bash
-$ create-react-app my-ts-app --script-version @baristalabs/react-scripts-ts
+$ create-react-app my-ts-app --scripts-version=@baristalabs/react-scripts-ts
 ```
-(https://github.com/facebookincubator/create-react-app/blob/master/README.md#getting-started) – How to create a new app.
+
+Add /src/vendor.ts that contains imports to 3rd party modules which will be loaded in a seperate bundle.
+
+Additional Resources
+---(https://github.com/facebookincubator/create-react-app/blob/master/README.md#getting-started) – How to create a new app.
 * [User Guide](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md) – How to develop apps bootstrapped with Create React App.
 
 Enhancements:
