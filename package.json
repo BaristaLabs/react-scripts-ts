@@ -1,14 +1,14 @@
 {
-  "name": "react-scripts-ts",
+  "name": "@baristalabs/react-scripts-ts",
   "version": "2.9.0",
   "description": "Configuration and scripts for Create React App.",
-  "repository": "baristalabs/create-react-app",
+  "repository": "baristalabs/react-scripts-ts",
   "license": "MIT",
   "engines": {
     "node": ">=6"
   },
   "bugs": {
-    "url": "https://github.com/baristalabs/create-react-app/issues"
+    "url": "https://github.com/baristalabs/react-scripts-ts/issues"
   },
   "files": [
     "bin",
