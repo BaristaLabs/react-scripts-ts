@@ -5,9 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React from 'react';
-import tiniestCat from './assets/tiniest-cat.jpg';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import App from './App';
 
-export default () => (
-  <img id="feature-image-inclusion" src={tiniestCat} alt="tiniest cat" />
-);
+ReactDOM.render(<App />, document.getElementById('root'));

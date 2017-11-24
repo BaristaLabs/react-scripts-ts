@@ -1,11 +1,9 @@
 // @remove-file-on-eject
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 'use strict';
 
@@ -28,18 +26,14 @@ module.exports = function(
   originalDirectory,
   template
 ) {
-  const ownPackageName = require(path.join(
-    __dirname,
-    '..',
-    'package.json'
-  )).name;
+  const ownPackageName = require(path.join(__dirname, '..', 'package.json'))
+    .name;
   const ownPath = path.join(appPath, 'node_modules', ownPackageName);
   const appPackage = require(path.join(appPath, 'package.json'));
   const useYarn = fs.existsSync(path.join(appPath, 'yarn.lock'));
 
   // Copy over some of the devDependencies
   appPackage.dependencies = appPackage.dependencies || {};
-  appPackage.devDependencies = appPackage.devDependencies || {};
 
   // Setup the script rules
   appPackage.scripts = {
@@ -48,8 +42,6 @@ module.exports = function(
     test: 'react-scripts-ts test --env=jsdom',
     eject: 'react-scripts-ts eject',
   };
-
-  console.log(appPackage);
 
   fs.writeFileSync(
     path.join(appPath, 'package.json'),
@@ -107,6 +99,24 @@ module.exports = function(
     command = 'npm';
     args = ['install', '--save', verbose && '--verbose'].filter(e => e);
   }
+  args.push('react', 'react-dom');
+
+  // Install dev dependencies
+  const types = [
+    '@types/node',
+    '@types/react',
+    '@types/react-dom',
+    '@types/jest',
+  ];
+
+  console.log(`Installing ${types.join(', ')} as dev dependencies ${command}...`);
+  console.log();
+
+  const devProc = spawn.sync(command, args.concat('-D').concat(types), { stdio: 'inherit' });
+  if (devProc.status !== 0) {
+    console.error(`\`${command} ${args.concat(types).join(' ')}\` failed`);
+    return;
+  }
 
   // Install additional template dependencies, if present
   const templateDependenciesPath = path.join(
@@ -123,22 +133,6 @@ module.exports = function(
     fs.unlinkSync(templateDependenciesPath);
   }
 
-  const types = [
-    '@types/node',
-    '@types/react',
-    '@types/react-dom',
-    '@types/jest',
-  ];
-
-  console.log(`Installing ${types.join(', ')} ${command}...`);
-  console.log();
-
-  const proc = spawn.sync(command, args.concat(types), { stdio: 'inherit' });
-  if (proc.status !== 0) {
-    console.error(`\`${command} ${args.concat(types).join(' ')}\` failed`);
-    return;
-  }
-
   // Install react and react-dom for backward compatibility with old CRA cli
   // which doesn't install react and react-dom along with react-scripts
   // or template is presetend (via --internal-testing-template)
@@ -146,9 +140,7 @@ module.exports = function(
     console.log(`Installing react and react-dom using ${command}...`);
     console.log();
 
-    const proc = spawn.sync(command, args.concat(['react', 'react-dom']), {
-      stdio: 'inherit',
-    });
+    const proc = spawn.sync(command, args, { stdio: 'inherit' });
     if (proc.status !== 0) {
       console.error(`\`${command} ${args.join(' ')}\` failed`);
       return;
@@ -212,6 +204,8 @@ module.exports = function(
 function isReactInstalled(appPackage) {
   const dependencies = appPackage.dependencies || {};
 
-  return typeof dependencies.react !== 'undefined' &&
-    typeof dependencies['react-dom'] !== 'undefined';
+  return (
+    typeof dependencies.react !== 'undefined' &&
+    typeof dependencies['react-dom'] !== 'undefined'
+  );
 }
