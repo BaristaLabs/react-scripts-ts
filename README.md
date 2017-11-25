@@ -36,3 +36,4 @@ update tsconfig.json and add loaders via:
 ```
 
 See: https://github.com/Microsoft/TypeScript/issues/10988
+Incorporates suggestions from https://developer.epages.com/blog/tech-stories/typescript-codesplitting-treeshaking/ for code splitting and tree shaking.

@@ -163,6 +163,10 @@ module.exports = {
             test: /\.(ts|tsx)$/,
             include: paths.appSrc,
             loader: require.resolve('awesome-typescript-loader'),
+            options: {
+              // compile with TypeScript, then transpile with Babel
+              useBabel: true
+            }
           },
           {
             test: /\.(tsc|tsxc)$/,
