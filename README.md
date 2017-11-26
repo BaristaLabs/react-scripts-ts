@@ -9,8 +9,6 @@ Please refer to its documentation:
 $ create-react-app my-ts-app --scripts-version=@baristalabs/react-scripts-ts
 ```
 
-Add /src/vendor.ts that contains imports to 3rd party modules which will be loaded in a seperate bundle.
-
 Additional Resources
 ---(https://github.com/facebookincubator/create-react-app/blob/master/README.md#getting-started) – How to create a new app.
 * [User Guide](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md) – How to develop apps bootstrapped with Create React App.
@@ -20,6 +18,7 @@ Enhancements:
  - Typescript Support via Awesome-Typescript-Loader & tslint support.
 - Additional loaders: scss-loader, worker-loader, raw-loader
 - Webpack 3.x support.
+- Includes default code-split entry points for runtime and vendor.
 
 
 Loader support in Typescript:
