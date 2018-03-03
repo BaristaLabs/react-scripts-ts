@@ -17,7 +17,7 @@ Enhancements:
 ---
  - Typescript Support via Awesome-Typescript-Loader & tslint support.
 - Additional loaders: scss-loader, worker-loader, raw-loader
-- Webpack 4.x support.
+- Webpack 3.x support.
 
 Loader support in Typescript:
 ---

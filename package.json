@@ -1,6 +1,6 @@
 {
   "name": "@baristalabs/react-scripts-ts",
-  "version": "2.10.0",
+  "version": "2.10.3",
   "description": "Configuration and scripts for Create React App.",
   "repository": "baristalabs/react-scripts-ts",
   "license": "MIT",
@@ -22,10 +22,12 @@
   },
   "dependencies": {
     "awesome-typescript-loader": "^3.5.0",
-    "autoprefixer": "8.0.0",
+    "autoprefixer": "8.1.0",
+    "babel-core": "6.26.0",
     "babel-jest": "^22.4.1",
     "babel-loader": "^7.1.3",
     "babel-preset-react-app": "^3.1.1",
+    "babel-runtime": "6.26.0",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
     "chalk": "2.3.2",
     "css-loader": "0.28.10",
@@ -45,30 +47,28 @@
     "raw-loader": "^0.5.1",
     "react-dev-utils": "^5.0.0",
     "react-error-overlay": "^4.0.0",
-    "sass-loader": "^6.0.6",
+    "sass-loader": "^6.0.7",
     "source-map-loader": "^0.2.3",
     "style-loader": "0.20.2",
     "sw-precache-webpack-plugin": "0.11.4",
     "ts-jest": "22.4.1",
     "tsconfig-paths-webpack-plugin": "^2.0.0",
     "tslint": "^5.9.1",
+    "tslint-loader": "^3.6.0",
     "tslint-react": "^3.5.1",
+    "typescript": "^2.7.2",
     "uglifyjs-webpack-plugin": "^1.2.2",
-    "url-loader": "0.6.2",
-    "webpack": "4.0.1",
-    "webpack-dev-server": "3.1.0",
+    "url-loader": "1.0.1",
+    "webpack": "3.10.0",
+    "webpack-dev-server": "2.11.1",
     "webpack-manifest-plugin": "2.0.0-rc.2",
-    "whatwg-fetch": "2.0.3",
+    "whatwg-fetch": "^2.0.3",
     "worker-loader": "baristalabs/worker-loader",
     "write-file-webpack-plugin": "^4.2.0"
   },
   "devDependencies": {
     "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "typescript": "^2.7.2"
-  },
-  "peerDependencies": {
-    "typescript": "2.x"
+    "react-dom": "^16.2.0"
   },
   "optionalDependencies": {
     "fsevents": "1.1.3"
