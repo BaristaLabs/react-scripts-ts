@@ -19,15 +19,18 @@ const path = require('path');
 const chalk = require('chalk');
 const spawn = require('react-dev-utils/crossSpawn');
 
-module.exports = function(
+module.exports = function (
   appPath,
   appName,
   verbose,
   originalDirectory,
   template
 ) {
-  const ownPackageName = require(path.join(__dirname, '..', 'package.json'))
-    .name;
+  const ownPackageName = require(path.join(
+    __dirname,
+    '..',
+    'package.json'
+  )).name;
   const ownPath = path.join(appPath, 'node_modules', ownPackageName);
   const appPackage = require(path.join(appPath, 'package.json'));
   const useYarn = fs.existsSync(path.join(appPath, 'yarn.lock'));
@@ -57,9 +60,9 @@ module.exports = function(
   }
 
   // Copy the files for the user
-  const templatePath = template
-    ? path.resolve(originalDirectory, template)
-    : path.join(ownPath, 'template');
+  const templatePath = template ?
+    path.resolve(originalDirectory, template) :
+    path.join(ownPath, 'template');
   if (fs.existsSync(templatePath)) {
     fs.copySync(templatePath, appPath);
   } else {
@@ -73,8 +76,7 @@ module.exports = function(
   // See: https://github.com/npm/npm/issues/1862
   fs.move(
     path.join(appPath, 'gitignore'),
-    path.join(appPath, '.gitignore'),
-    [],
+    path.join(appPath, '.gitignore'),[],
     err => {
       if (err) {
         // Append if there's already a `.gitignore` file there
@@ -99,7 +101,8 @@ module.exports = function(
     command = 'npm';
     args = ['install', '--save', verbose && '--verbose'].filter(e => e);
   }
-  args.push('react', 'react-dom');
+  //Later versions of CRA automatically add react, react-dom as dependencies.
+  //args.push('react', 'react-dom');
 
   // Install dev dependencies
   const types = [
@@ -107,12 +110,17 @@ module.exports = function(
     '@types/react',
     '@types/react-dom',
     '@types/jest',
+    'typescript',
   ];
 
-  console.log(`Installing ${types.join(', ')} as dev dependencies ${command}...`);
+  console.log(
+    `Installing ${types.join(', ')} as dev dependencies ${command}...`
+  );
   console.log();
 
-  const devProc = spawn.sync(command, args.concat('-D').concat(types), { stdio: 'inherit' });
+  const devProc = spawn.sync(command, args.concat('-D').concat(types), {
+    stdio: 'inherit',
+  });
   if (devProc.status !== 0) {
     console.error(`\`${command} ${args.concat(types).join(' ')}\` failed`);
     return;
@@ -140,7 +148,9 @@ module.exports = function(
     console.log(`Installing react and react-dom using ${command}...`);
     console.log();
 
-    const proc = spawn.sync(command, args, { stdio: 'inherit' });
+    const proc = spawn.sync(command, args.concat(['react', 'react-dom']), {
+      stdio: 'inherit',
+    });
     if (proc.status !== 0) {
       console.error(`\`${command} ${args.join(' ')}\` failed`);
       return;
@@ -204,8 +214,6 @@ module.exports = function(
 function isReactInstalled(appPackage) {
   const dependencies = appPackage.dependencies || {};
 
-  return (
-    typeof dependencies.react !== 'undefined' &&
-    typeof dependencies['react-dom'] !== 'undefined'
-  );
+  return typeof dependencies.react !== 'undefined' &&
+    typeof dependencies['react-dom'] !== 'undefined';
 }

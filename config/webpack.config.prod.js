@@ -11,6 +11,8 @@ const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const {
   CheckerPlugin
 } = require('awesome-typescript-loader');
@@ -94,7 +96,18 @@ module.exports = {
     // https://github.com/facebookincubator/create-react-app/issues/290
     // `web` extension prefixes have been added for better support
     // for React Native Web.
-    extensions: ['.web.ts', '.ts', '.web.tsx', '.tsx', '.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
+    extensions: [
+      '.mjs',
+      '.web.ts',
+      '.ts',
+      '.web.tsx',
+      '.tsx',
+      '.web.js',
+      '.js',
+      '.json',
+      '.web.jsx',
+      '.jsx',
+    ],
     alias: {
       // @remove-on-eject-begin
       // Resolve Babel runtime relative to react-scripts.
@@ -116,6 +129,9 @@ module.exports = {
       // please link the files into your node_modules/ and let module-resolution kick in.
       // Make sure your source files are compiled, as they will not be processed in any way.
       new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
+      new TsconfigPathsPlugin({
+        configFile: paths.appTsConfig
+      }),
     ],
   },
   module: {
@@ -137,7 +153,7 @@ module.exports = {
         }
       },
       {
-        test: /\.js$/,
+        test: /\.(js|jsx|mjs)$/,
         loader: require.resolve('source-map-loader'),
         enforce: 'pre',
         include: paths.appSrc,
@@ -161,16 +177,6 @@ module.exports = {
               name: 'static/media/[name].[hash:8].[ext]',
             },
           },
-          //Compile .tsx?
-          {
-            test: /\.(ts|tsx)$/,
-            include: paths.appSrc,
-            loader: require.resolve('awesome-typescript-loader'),
-            options: {
-              // compile with TypeScript, then transpile with Babel
-              useBabel: true
-            }
-          },
           // Process JS with Babel.
           {
             test: /\.(js|jsx|mjs)$/,
@@ -179,10 +185,22 @@ module.exports = {
             options: {
               // @remove-on-eject-begin
               babelrc: false,
-              presets: [require.resolve('./babel-presets.js')],
+              presets: [require.resolve('babel-preset-react-app')],
               // @remove-on-eject-end
               compact: true,
             },
+          },
+          //Compile .tsx?
+          {
+            test: /\.(ts|tsx)$/,
+            include: paths.appSrc,
+            loader: require.resolve('awesome-typescript-loader'),
+            options: {
+              // compile with TypeScript, then transpile with Babel
+              useBabel: true,
+              // disable type checker - we will use it in fork plugin
+              transpileOnly: true,
+            }
           },
           // The notation here is somewhat confusing.
           // "postcss" loader applies autoprefixer to our CSS.
@@ -325,23 +343,28 @@ module.exports = {
     // Otherwise React will be compiled in the very slow development mode.
     new webpack.DefinePlugin(env.stringified),
     // Minify the code.
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        // Disabled because of an issue with Uglify breaking seemingly valid code:
-        // https://github.com/facebookincubator/create-react-app/issues/2376
-        // Pending further investigation:
-        // https://github.com/mishoo/UglifyJS2/issues/2011
-        comparisons: false,
-      },
-      mangle: {
-        safari10: true,
-      },
-      output: {
-        comments: false,
-        // Turned on because emoji and regex is not minified properly using default
-        // https://github.com/facebookincubator/create-react-app/issues/2488
-        ascii_only: true,
+    new UglifyJsPlugin({
+      parallel: true,
+      cache: true,
+      uglifyOptions: {
+        ecma: 8,
+        compress: {
+          warnings: false,
+          // Disabled because of an issue with Uglify breaking seemingly valid code:
+          // https://github.com/facebookincubator/create-react-app/issues/2376
+          // Pending further investigation:
+          // https://github.com/mishoo/UglifyJS2/issues/2011
+          comparisons: false,
+        },
+        mangle: {
+          safari10: true,
+        },
+        output: {
+          comments: false,
+          // Turned on because emoji and regex is not minified properly using default
+          // https://github.com/facebookincubator/create-react-app/issues/2488
+          ascii_only: true,
+        },
       },
       sourceMap: shouldUseSourceMap,
     }),
@@ -391,18 +414,21 @@ module.exports = {
     // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    // Used by awesome-typescript-loader
+    // Perform type checking and linting in a separate process to speed up compilation
     new CheckerPlugin(),
     // Use a hashed module id rather than resolving order
     new webpack.HashedModuleIdsPlugin(),
+    // Set chunks -- remove in Webpack 4.x
     new webpack.optimize.CommonsChunkPlugin({
       name: 'runtime',
-      chunks: ['runtime', 'vendor', 'main']
+      chunks: ['runtime', 'vendor', 'main'],
+      minChunks: Infinity,
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      chunks: ['vendor', 'main']
-    })
+      chunks: ['vendor', 'main'],
+      minChunks: Infinity,
+    }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.

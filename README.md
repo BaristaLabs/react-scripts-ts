@@ -18,8 +18,6 @@ Enhancements:
  - Typescript Support via Awesome-Typescript-Loader & tslint support.
 - Additional loaders: scss-loader, worker-loader, raw-loader
 - Webpack 3.x support.
-- Includes default code-split entry points for runtime and vendor.
-
 
 Loader support in Typescript:
 ---
