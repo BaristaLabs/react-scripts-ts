@@ -24,7 +24,7 @@ Enhancements over create-react-app-typescript:
    - worker-loader (\*.worker.js and inline)
    - raw-loader (.tsc .tsxc and inline)
  - Webpack 3.x support.
- - Custom runtime/vendor/main bundles
+ - Produces runtime/vendor/main files as seperate chunks
  - Incorporates suggestions for [code splitting and tree shaking](https://developer.epages.com/blog/tech-stories/typescript-codesplitting-treeshaking/).
 
 Loader support in Typescript:
