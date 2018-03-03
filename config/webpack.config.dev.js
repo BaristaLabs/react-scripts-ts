@@ -331,7 +331,18 @@ module.exports = {
     // Perform type checking and linting in a separate process to speed up compilation
     new CheckerPlugin(),
     //Write fields to the build folder during dev.
-    new WriteFilePlugin()
+    new WriteFilePlugin(),
+    // Set chunks -- remove in Webpack 4.x
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'runtime',
+      chunks: ['runtime', 'vendor', 'main'],
+      minChunks: Infinity,
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      chunks: ['vendor', 'main'],
+      minChunks: Infinity,
+    }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.

@@ -101,7 +101,8 @@ module.exports = function (
     command = 'npm';
     args = ['install', '--save', verbose && '--verbose'].filter(e => e);
   }
-  args.push('react', 'react-dom');
+  //Later versions of CRA automatically add react, react-dom as dependencies.
+  //args.push('react', 'react-dom');
 
   // Install dev dependencies
   const types = [
