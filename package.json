@@ -1,6 +1,6 @@
 {
   "name": "@baristalabs/react-scripts-ts",
-  "version": "2.10.6",
+  "version": "2.11.0",
   "description": "Configuration and scripts for Create React App.",
   "repository": "baristalabs/react-scripts-ts",
   "license": "MIT",
@@ -63,7 +63,7 @@
     "webpack-dev-server": "2.11.1",
     "webpack-manifest-plugin": "2.0.0-rc.2",
     "whatwg-fetch": "^2.0.3",
-    "worker-loader": "baristalabs/worker-loader",
+    "worker-loader": "^1.1.1",
     "write-file-webpack-plugin": "^4.2.0"
   },
   "devDependencies": {
