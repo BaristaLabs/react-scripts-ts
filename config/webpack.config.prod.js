@@ -260,6 +260,10 @@ module.exports = {
             // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
           },
           {
+            test: /\.worker\.js$/,
+            use: { loader: 'worker-loader' }
+          },
+          {
             test: /\.scss$/,
             use: [
               require.resolve('style-loader'),
