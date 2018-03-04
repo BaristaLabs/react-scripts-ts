@@ -17,7 +17,7 @@ Additional Resources
 Enhancements over create-react-app-typescript:
 ---
  - Better Typescript Support via Awesome-Typescript-Loader & tslint support.
-   - Note: some of the benefits of awesome-typescript-loader have been superceeded, seperate process typechecking is now within wmonk's version, but babel support is not.
+   - Note: some of the benefits of awesome-typescript-loader have been superceeded - both babel and fork checking is now in ts-loader, so... will re-evaluate later.
  - Polyfills via core.js
  - Additional loaders:
    - scss-loader (\*.scss and inline)

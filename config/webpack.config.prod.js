@@ -9,13 +9,11 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const {
-  CheckerPlugin
-} = require('awesome-typescript-loader');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -419,7 +417,11 @@ module.exports = {
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     // Perform type checking and linting in a separate process to speed up compilation
-    new CheckerPlugin(),
+    new ForkTsCheckerWebpackPlugin({
+      async: false,
+      tsconfig: paths.appTsConfig,
+      tslint: paths.appTsLint,
+    }),
     // Use a hashed module id rather than resolving order
     new webpack.HashedModuleIdsPlugin(),
     // Set chunks -- remove in Webpack 4.x
