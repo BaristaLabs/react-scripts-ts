@@ -18,6 +18,7 @@ Enhancements over create-react-app-typescript:
 ---
  - Better Typescript Support via Awesome-Typescript-Loader & tslint support.
    - Note: some of the benefits of awesome-typescript-loader have been superceeded - both babel and fork checking is now in ts-loader, so... will re-evaluate later.
+   - fork-ts-checker-webpack-plugin doesn't seem to be picking up configuration and is looking at all files, not just /src/**.*
  - Polyfills via core.js
  - Additional loaders:
    - scss-loader (\*.scss and inline)
