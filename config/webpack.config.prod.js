@@ -14,6 +14,7 @@ const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const { CheckerPlugin } = require('awesome-typescript-loader');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -417,11 +418,13 @@ module.exports = {
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     // Perform type checking and linting in a separate process to speed up compilation
-    new ForkTsCheckerWebpackPlugin({
-      async: false,
-      tsconfig: paths.appTsConfig,
-      tslint: paths.appTsLint,
-    }),
+    new CheckerPlugin(),
+    // ForkTsCheckerWebpackPlugin looks at ALL folders rather than just /src. doesn't seem to be config option to change.
+    // new ForkTsCheckerWebpackPlugin({
+    //   async: false,
+    //   tsconfig: paths.appTsConfig,
+    //   tslint: paths.appTsLint,
+    // }),
     // Use a hashed module id rather than resolving order
     new webpack.HashedModuleIdsPlugin(),
     // Set chunks -- remove in Webpack 4.x

@@ -8,11 +8,12 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+//const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const WriteFilePlugin = require("write-file-webpack-plugin");
+const { CheckerPlugin } = require('awesome-typescript-loader');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -331,12 +332,14 @@ module.exports = {
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     // Perform type checking and linting in a separate process to speed up compilation
-    new ForkTsCheckerWebpackPlugin({
-      async: false,
-      watch: paths.appSrc,
-      tsconfig: paths.appTsConfig,
-      tslint: paths.appTsLint,
-    }),
+    new CheckerPlugin(),
+    // ForkTsCheckerWebpackPlugin looks at ALL folders rather than just /src. doesn't seem to be config option to change.
+    // new ForkTsCheckerWebpackPlugin({
+    //   async: false,
+    //   watch: paths.appSrc,
+    //   tsconfig: paths.appTsConfig,
+    //   tslint: paths.appTsLint,
+    // }),
     //Write fields to the build folder during dev.
     new WriteFilePlugin(),
     // Set chunks -- remove in Webpack 4.x
