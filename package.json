@@ -1,6 +1,6 @@
 {
   "name": "@baristalabs/react-scripts-ts",
-  "version": "2.11.7",
+  "version": "2.11.8",
   "description": "Configuration and scripts for Create React App.",
   "repository": "baristalabs/react-scripts-ts",
   "license": "MIT",
@@ -54,7 +54,7 @@
     "style-loader": "0.21.0",
     "sw-precache-webpack-plugin": "0.11.5",
     "ts-jest": "22.4.4",
-    "tsconfig-paths-webpack-plugin": "^2.0.0",
+    "tsconfig-paths-webpack-plugin": "^3.0.4",
     "tslint": "^5.9.1",
     "tslint-loader": "^3.6.0",
     "tslint-react": "^3.5.1",
